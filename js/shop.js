@@ -4,8 +4,11 @@ window.Shop = {
     getProducts: function () {
         $.ajax({
             url: Shop.API_BASE_URL + "/products"
+            //default ajax method: "GET"
         }).done(function (response) {
             console.log(response);
+
+            Shop.displayProducts(response.content);
         });
     },
 
@@ -25,6 +28,14 @@ window.Shop = {
                         </div>                       
                     </div>
                 </div>`
+    },
+
+    displayProducts: function (products) {
+        var productsHtml = "";
+
+        products.forEach(oneProduct => productsHtml += Shop.getProductHtml(oneProduct));
+
+        $(".single-product-area .row:first-child").html(productsHtml);
     }
 };
 
